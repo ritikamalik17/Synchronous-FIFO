@@ -1,8 +1,6 @@
 //Test bench code for Synchronous FIFO
-
 `timescale 1ns / 1ps
-
-module Synchronous_FIFO_tb;
+module sync_fifo_tb;
 
 parameter WIDTH = 8;
 parameter DEPTH = 16;
@@ -16,7 +14,7 @@ wire full,empty;
 integer test_case;
 
 //Instantiating FIFO Module
-Synchronous_FIFO #(.WIDTH(WIDTH), .DEPTH(DEPTH)) syn_fifo(
+Sync_code #(.WIDTH(WIDTH), .DEPTH(DEPTH)) syn_fifo(
   .clk(clk),
   .reset(reset),
   .data_in(data_in),
@@ -30,8 +28,8 @@ Synchronous_FIFO #(.WIDTH(WIDTH), .DEPTH(DEPTH)) syn_fifo(
 //Generating a Value Change Dump File for simulation analysis
 initial 
 begin 
-  $dumpfile("syn_fifo_dump.vcd");
-  $dumpvars(0,Synchronous_FIFO_tb);
+  $dumpfile("sync_code.vcd");
+  $dumpvars(0,sync_fifo_tb);
 end
 
 //Generating Clock of time period = 10 ns
