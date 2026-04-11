@@ -1,6 +1,6 @@
 # Synchronous-FIFO
 A synchronous FIFO is a data buffer circuit which provides sequential data flow between two systems, synchronizing them using a common clock.
-Here is a block diagram for synchronous FIFO :-
+Here is a block diagram for synchronous FIFO:-
 
 ![image](https://github.com/user-attachments/assets/87ad34f2-4ab7-44b3-b469-a6a449c753c1)
 
