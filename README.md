@@ -1,5 +1,6 @@
 # Synchronous-FIFO
 A synchronous FIFO is a data buffer circuit which provides sequential data flow between two systems, synchronizing them using a common clock.
+It is a particularly well and practical design concept that serves as a handshaking technique and synchronisation mechanism between two modules.
 Here is a block diagram for synchronous FIFO:-
 
 ![image](https://github.com/user-attachments/assets/87ad34f2-4ab7-44b3-b469-a6a449c753c1)
@@ -8,7 +9,7 @@ This project implements a Synchronous FIFO in Verilog HDL, designed for simulati
 
 ## **Design Module**
 
-The Synchronous_FIFO.v module is designed to ensure efficient data handling in digital systems. Proper configuration prevents common issues like overflow or underflow, guaranteeing reliable data management. The FIFO operates on a single clock domain and supports configurable data width and depth. It uses a circular buffer with read and write pointers, and a counter to track the number of elements in the queue.
+The Sync_code.v module is designed to ensure efficient data handling in digital systems. Proper configuration prevents common issues like overflow or underflow, guaranteeing reliable data management. The FIFO operates on a single clock domain and supports configurable data width and depth. It uses a circular buffer with read and write pointers, and a counter to track the number of elements in the queue.
 
 **PARAMETERS**
 | Parameter | Description       | Default |
@@ -30,7 +31,7 @@ The Synchronous_FIFO.v module is designed to ensure efficient data handling in d
 
 ## **Test Bench Case Implementation**
 
-The testbench Synchronous_FIFO_tb.v for the FIFO module generates random data and writes it to the FIFO, then reads it back and compares the results. The test bench encompasses a wide range of tests designed to rigourously validate the FIFO's operation.
+The testbench Sync_fifo_tb.v for the FIFO module generates random data and writes it to the FIFO, then reads it back and compares the results. The test bench encompasses a wide range of tests designed to rigourously validate the FIFO's operation.
 Functional tests verify the FIFO's basic operations: write, read, full and empty condition.
 Stress tests evaluate behaviour under extreme conditions such as wrap-around, simultaneous read/write, and overflow/underflow.
 Reset and Duration tests confirm the correct reset functionalitu and long-term stability.
@@ -103,5 +104,5 @@ The synchronous FIFO design was tested using a testbench. The following key resu
 4. Communication in FPGA systems
 
 ## **Conclusion**
-
+A parameterized synchronous FIFO was developed and validated in Xilinx Vivado using Verilog HDL. The design supports reliable data buffering within a single clock domain, ensuring correct sequencing and flow control. Functional simulation verified accurate behavior across all operating conditions, including boundary cases. This implementation is scalable and can be integrated into complex digital architectures such as processors, memory buffers, and communication systems.
 The synchronous FIFO was successfully designed, implemented, and verified in Xilinx Vivado using Verilog HDL. The FIFO efficiently handles data transfer between modules operating under the same clock domain, ensuring smooth and reliable data flow. Simulation  results confirmed correct functionality, with proper handling of full, empty, read, and write operations. This design can now be integrated into larger digital systems such as processors, image buffers, or communication interfaces.
