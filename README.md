@@ -42,7 +42,7 @@ The test cases are :-
 2. **Read Operation Test** - Reading data from the FIFO when it is not empty to ensure the data read matches the expected value.
 3. **Full Condition Test** - Write elements until the FIFO is full flag to ensure the full flag is asserted when FIFO reaches capacity.
 4. **Empty Condition Test** - Reading elements until the FIFO is empty and check the empty flag and then verify that the empty flag is high when FIFO is empty.
-5. **Single Element Write/Read Test** - Write and then single element to validate basic operation.
+5. **Single Element Write/Read Test** - Write and then read single element to validate basic operation.
 6. **Multiple Writes Test** - Write multiple elements sequentially without reading.
 7. **Multiple Reads Test** - Read multiple elements after writing them to ensure FIFO behaviour.
 8. **Reset Functionality Test** - Reset the FIFO during operation and verify pointers and flags.
