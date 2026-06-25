@@ -19,7 +19,8 @@ reg [3:0] count;
 assign empty = (count == 0);
 assign full  = (count == 8);
  
-//Reset Logicalways @(posedge clk)
+//Reset Logic
+always @(posedge clk)
 begin
     if (reset)
     begin
