@@ -13,11 +13,6 @@ This project implements a Synchronous FIFO in Verilog HDL, designed for simulati
 
 The Sync_code.v module is designed to ensure efficient data handling in digital systems. Proper configuration prevents common issues like overflow or underflow, guaranteeing reliable data management. The FIFO operates on a single clock domain and supports configurable data width and depth. It uses a circular buffer with read and write pointers, and a counter to track the number of elements in the queue.
 
-**PARAMETERS**
-| Parameter | Description       | Default |
-| --------- | ----------------- | ------- |
-| WIDTH     | Data bus width    | 8       |
-| DEPTH     | FIFO memory depth | 16      |
 
 **INPUT AND OUTPUT PORTS**
 | Port       | Direction | Description            |
@@ -33,65 +28,11 @@ The Sync_code.v module is designed to ensure efficient data handling in digital 
 
 ## **Test Bench Case Implementation**
 
-The testbench Sync_fifo_tb.v for the FIFO module generates random data and writes it to the FIFO, then reads it back and compares the results. The test bench encompasses a wide range of tests designed to rigourously validate the FIFO's operation.
+The testbench sync_fifo_tb.v for the FIFO module generates random data and writes it to the FIFO, then reads it back and compares the results. The test bench encompasses a wide range of tests designed to rigourously validate the FIFO's operation.
 Functional tests verify the FIFO's basic operations: write, read, full and empty condition.
-Stress tests evaluate behaviour under extreme conditions such as wrap-around, simultaneous read/write, and overflow/underflow.
-Reset and Duration tests confirm the correct reset functionalitu and long-term stability.
-This comprehensive approach guarantees robust performance.
 
-The test cases are :- 
-1. **Write Operation Test** - Writing a single element into the FIFO when it is not full to ensure that FIFO should not be longer be empty after the write.
-2. **Read Operation Test** - Reading data from the FIFO when it is not empty to ensure the data read matches the expected value.
-3. **Full Condition Test** - Write elements until the FIFO is full flag to ensure the full flag is asserted when FIFO reaches capacity.
-4. **Empty Condition Test** - Reading elements until the FIFO is empty and check the empty flag and then verify that the empty flag is high when FIFO is empty.
-5. **Single Element Write/Read Test** - Write and then read single element to validate basic operation.
-6. **Multiple Writes Test** - Write multiple elements sequentially without reading.
-7. **Multiple Reads Test** - Read multiple elements after writing them to ensure FIFO behaviour.
-8. **Reset Functionality Test** - Reset the FIFO during operation and verify pointers and flags.
-9. **Wrap-around Test** - This test ensures that the FIFO correctly wraps pointers when the buffer reaches it maximum capacity, validating data integrity after pointer rollover.
-10. **Simultaneous Read/Write Test** - This test checks the behaviour of FIFO under concurrent read and write operations to confirm no conflicts or race conditions occur.
-11. **Overflow Handling Test** - This test ensures the FIFO behaves correctly when attempting to write to a full buffer and ignore writes when full.
-12. **Underflow Handling Test** - This test ensures the FIFO behaves correctly when attempting to read from an empty buffer, preventing invalid data access.
+The test case is to write 3 inputs to the fifo and then to read them. The testbench uses a single clock for writing and reading, and includes reset signal to initialize the FIFO.
 
-The testbench uses a single clock for writing and reading, and includes reset signal to initialize the FIFO. The testbench finishes after running the test cases.
-
-## **Simulation Waveforms**
-
-Test Case 1 : Write Operation Test
-![image](https://github.com/user-attachments/assets/f6ff315d-fad9-4dfb-9cc0-6318dde2a78b)
-
-Test Case 2 : Read Operation Test
-![image](https://github.com/user-attachments/assets/8927237e-7b6d-49f7-95ad-028254f0766b)
-
-Test Case 3 : Full Condition Test
-![image](https://github.com/user-attachments/assets/1c14b300-d747-4e25-8aac-0b18d88a75ab)
-
-Test Case 4 : Empty Condition Test
-![image](https://github.com/user-attachments/assets/cde1edd2-8c0e-4fb8-b4a6-30446bff17fd)
-
-Test Case 5 : Single Element Write/Read Test
-![image](https://github.com/user-attachments/assets/af854b50-1696-4708-b957-025b843cba94)
-
-Test Case 6 : Multiple Writes Test
-![image](https://github.com/user-attachments/assets/23520f9d-b428-40ad-b1a1-06cfc6f196a3)
-
-Test Case 7 : Multiple Reads Test
-![image](https://github.com/user-attachments/assets/55c4ea26-38db-431d-b354-48b6fad60eed)
-
-Test Case 8 : Reset Functionality Test
-![image](https://github.com/user-attachments/assets/3a86ec10-f750-44d0-aa46-be0a0cdf894f)
-
-Test Case 9 : Wrap-around Test
-![image](https://github.com/user-attachments/assets/254270bf-a2de-4be2-bdf5-76b0f5753a42)
-
-Test Case 10 : Simultaneous Read/Write Test
-![image](https://github.com/user-attachments/assets/bf5aa5e9-1cb1-44d0-9ef4-12250fe6ed5d)
-
-Test Case 11 : Overflow Handling Test 
-![image](https://github.com/user-attachments/assets/5d41f0fa-c5b0-40d0-8e69-9ae1816bde57)
-
-Test Case 12 : Underflow Handling Test
-![image](https://github.com/user-attachments/assets/d88e27fe-25d1-4b81-94c1-7ba0b1c3f1e5)
 
 ## **Results**
 
@@ -108,3 +49,6 @@ The synchronous FIFO design was tested using a testbench. The following key resu
 ## **Conclusion**
 A parameterized synchronous FIFO was developed and validated in Xilinx Vivado using Verilog HDL. The design supports reliable data buffering within a single clock domain, ensuring correct sequencing and flow control. Functional simulation verified accurate behavior across all operating conditions, including boundary cases. This implementation is scalable and can be integrated into complex digital architectures such as processors, memory buffers, and communication systems.
 The synchronous FIFO was successfully designed, implemented, and verified in Xilinx Vivado using Verilog HDL. The FIFO efficiently handles data transfer between modules operating under the same clock domain, ensuring smooth and reliable data flow. Simulation  results confirmed correct functionality, with proper handling of full, empty, read, and write operations. This design can now be integrated into larger digital systems such as processors, image buffers, or communication interfaces.
+
+## **Limitation**
+This implementation does not support simultaneous read and write operations in the same clock cycle. Read and write requests are prioritized using an `if-else` structure, allowing only one operation to be executed per clock edge. This simplification was intentionally adopted to keep the design easy to understand and verify. Future improvements may include support for concurrent read and write operations while maintaining accurate FIFO occupancy tracking.
