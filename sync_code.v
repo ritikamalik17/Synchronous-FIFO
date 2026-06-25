@@ -1,57 +1,53 @@
 // Design code for Synchronous FIFO
 
-`timescale 1ns / 1ps
- 
-module Synchronous_FIFO #(
-       parameter WIDTH = 8, //Data width
-       parameter DEPTH = 16 //FIFO depth
-)(
-     input wire clk,
-     input wire reset, //Asynchronous Reset
-     input wire [WIDTH-1:0] data_in,
-     input wire w_en,
-     input wire r_en,
-     output reg [WIDTH-1:0] data_out,
-     output wire full,
-     output wire empty
+module sync_fifo(
+    input clk,
+    input reset,
+    input wr_en,
+    input rd_en,
+    input [7:0] data_in,
+    output reg [7:0] data_out,
+    output full,
+    output empty
 );
+reg [7:0] mem [0:7];
+reg [2:0] wr_ptr;
+reg [2:0] rd_ptr;
+reg [3:0] count;
 
-//Memory and pointers
-reg [WIDTH-1:0] fifo [0:DEPTH-1];
-reg [$clog2(DEPTH)-1:0] w_ptr,r_ptr;
-reg [$clog2(DEPTH):0] count;
-
-//Reset Logic
-always @(posedge clk or negedge reset)
+//Status flag
+assign empty = (count == 0);
+assign full  = (count == 8);
+ 
+//Reset Logicalways @(posedge clk)
 begin
-  if (!reset)
-  begin
-    w_ptr <= 0;
-    r_ptr <= 0;
-    count <= 0;
-    data_out <= 0;
-  end
-  else
-  begin 
-    //Write operation
-    if(w_en && !full)          
+    if (reset)
     begin
-      fifo[w_ptr] <= data_in;
-      w_ptr <= (w_ptr + 1) % DEPTH;
-      count <= count + 1;
+        wr_ptr <= 0;
+        rd_ptr <= 0;
+        count  <= 0;
+        data_out <= 0;
     end
-    //Read operation
-    if(r_en && !empty)
+    else
     begin
-      data_out <= fifo[r_ptr];
-      r_ptr <= (r_ptr + 1) % DEPTH;
-      count <= count - 1;
-    end 
-  end
+     
+        //Write operation
+        if (wr_en && !full)
+        begin
+           mem[wr_ptr] <= data_in;
+           wr_ptr <=wr_ptr + 1;
+           count <= count+1;
+        end
+     
+        //Read operation
+        else if (rd_en && !empty)
+        begin
+        	data_out<= mem[rd_ptr];
+        	rd_ptr<=rd_ptr+1;
+        	count<=count-1;
+    	end
+	end
 end
 
-//Status Flags
-assign full = (count  == DEPTH);
-assign empty = (count == 0);
-   
+
 endmodule
