@@ -3,9 +3,7 @@ A synchronous FIFO is a data buffer circuit which provides sequential data flow 
 It is a particularly well and practical design concept that serves as a handshaking technique and synchronisation mechanism between two modules.
 Here is a block diagram for synchronous FIFO:-
 
-![image](https://github.com/user-attachments/assets/87ad34f2-4ab7-44b3-b469-a6a449c753c1) 
-![image](<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/484b03be-1f07-41ae-a92f-a50ed5d4fc64" />
-)
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/78d51876-28f2-402b-a4a1-ad5eedfd8560" />
 
 This project implements a Synchronous FIFO in Verilog HDL, designed for simulation in Xilinx Vivado. The FIFO operates on a single clock domain, supports parameterized data width and depth, and includes control/status signals like full, empty, w_en, r_en and reset.
 
@@ -32,6 +30,9 @@ The testbench sync_fifo_tb.v for the FIFO module generates random data and write
 Functional tests verify the FIFO's basic operations: write, read, full and empty condition.
 
 The test case is to write 3 inputs to the fifo and then to read them. The testbench uses a single clock for writing and reading, and includes reset signal to initialize the FIFO.
+
+## **Fifo waveform**
+<img width="1116" height="272" alt="Screenshot 2026-06-25 211320" src="https://github.com/user-attachments/assets/a3992586-4a0a-406b-a2ea-b06faf09aaeb" />
 
 
 ## **Results**
